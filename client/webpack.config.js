@@ -2,8 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/main.tsx",
     mode: "development",
+    devtool: "inline-source-map",
     module: {
         rules: [{
                 test: /\.(js|jsx)$/,
@@ -16,11 +17,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             }
         ]
     },
     resolve: {
-        extensions: ["*", ".js", ".jsx"]
+        extensions: [".tsx", ".ts", ".js", ".jsx"]
     },
     output: {
         path: path.resolve(__dirname, "dist/"),
@@ -29,7 +35,7 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "public/"),
-        port: 3000,
+        port: 9000,
         publicPath: "http://localhost:3000/dist/",
         hotOnly: true
     },
